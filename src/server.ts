@@ -1,7 +1,6 @@
 import express from "express";
 import router from "./routes";
 import db from "./config/db";
-import colors from "colors";
 
 // Conectar a db
 
