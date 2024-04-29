@@ -1,5 +1,7 @@
 import express from "express";
-import router from "./routes";
+import router from "./router";
+import swaggerUi from "swagger-ui-express";
+import swaggerSpec from "./config/swagger";
 import db from "./config/db";
 
 // Conectar a db
@@ -8,7 +10,7 @@ async function connectDb() {
   try {
     await db.authenticate();
     await db.sync();
-   /*  console.log("Conexión exitosa en la base de datos"); */
+    /*  console.log("Conexión exitosa en la base de datos"); */
   } catch (error) {
     console.log(error);
     console.log("Error en la base de datos");
@@ -22,8 +24,7 @@ server.use(express.json());
 
 server.use("/api/products", router);
 
-server.use("/api", (req, res) => {
-  res.json({ msg: "Desde api" });
-});
+// Docs
+server.use("/docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 export default server;
