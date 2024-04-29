@@ -1,7 +1,7 @@
 import request from "supertest";
 import server from "../../server";
 
-describe("GET /api", () => {
+describe("POST /api", () => {
   it("Should create a new Product and return 201", async () => {
     const res = await request(server).post("/api/products").send({
       name: "Testing",
@@ -23,5 +23,12 @@ describe("GET /api", () => {
     expect(res.body.errors[0].msg).toEqual(
       "El precio debe ser mayor o igual a cero"
     );
+  });
+});
+
+describe("GET /api/products", () => {
+  it("Get all products", async () => {
+    const res = await request(server).get("/api/products");
+    expect(res.status).toBe(200);
   });
 });
